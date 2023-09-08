@@ -1,17 +1,18 @@
 import React from 'react';
 import './App.css';
+import SwaggerMini from "./components/SwaggerMini";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-import styled from "@emotion/styled";
 
-const MyBtn = styled.button`
-  background-color: green;
-`
 function App() {
 
   return (
-    <div className="App">
-      <MyBtn>mybtn</MyBtn>
-    </div>
+    <BrowserRouter>
+        <Routes>
+            <Route path={'/'} element={<SwaggerMini />} />
+            <Route path={'/swagger/:id'} element={<SwaggerMini />} />
+        </Routes>
+    </BrowserRouter>
   );
 }
 
