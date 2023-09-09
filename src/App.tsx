@@ -1,18 +1,14 @@
 import React from 'react';
 import './App.css';
-import SwaggerMini from "./components/SwaggerMini";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import { AppContainerCss } from './app-css-in-js';
+import StudyRecordList from "./components/StudyRecordList";
 
 
 function App() {
-
   return (
-    <BrowserRouter>
-        <Routes>
-            <Route path={'/'} element={<SwaggerMini />} />
-            <Route path={'/swagger/:id'} element={<SwaggerMini />} />
-        </Routes>
-    </BrowserRouter>
+      <AppContainerCss>
+        <StudyRecordList />
+      </AppContainerCss>
   );
 }
 

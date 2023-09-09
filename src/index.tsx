@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import RouterConfig from "./components/RouterConfig";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -12,7 +12,9 @@ root.render(
     //   <App />
     // </React.StrictMode>
     //严格模式触发了两次set
-    <App />
+    <>
+        <RouterConfig />
+    </>
 );
 
 // If you want to start measuring performance in your app, pass a function

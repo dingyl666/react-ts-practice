@@ -4,6 +4,7 @@ import {IContentItem} from "./interface";
 import {list} from "./utils";
 import {ContainerCss, ContainerItem, ContentItemCss} from "./css-in-js";
 import {useNavigate, useParams,} from "react-router-dom";
+import PageWrapper from "../../components/PageWrapper";
 
 const ContentItem:React.FC <IContentItem> = React.memo((props) => {
     const {titleId} = props ;
@@ -48,7 +49,6 @@ const SwaggerMini:React.FC = () => {
                 if(find) {
                     find.show = true ;
                     const dom = document.getElementById(`${find.title}`) ;
-                    console.log(dom,'ddd')
                     if(dom && dom.scrollIntoView) {
                         dom.scrollIntoView({
                             behavior:"smooth"
@@ -67,35 +67,40 @@ const SwaggerMini:React.FC = () => {
     useEffect(() => {
         init().then()
     },[])
-    return (
-        <Spin spinning={loading} tip={'load data...'}>
-            <ContainerCss>
-                {
-                    data.map(pp => (
-                        <ContainerItem key={pp.title} id={`${pp.title}`}>
-                            <Alert onClick={() => {
-                                setData(value => {
-                                    value.forEach(ff => {
-                                        if(ff.title === pp.title) {
-                                            ff.show = !ff.show ;
-                                            if(ff.show) {
-                                                navigate(`/swagger/${pp.title}`)
-                                            }else {
-                                                navigate(`/`)
-                                            }
-                                        }else {
-                                            ff.show = false ;
-                                        }
-                                    })
-                                    return [...value]
-                                })
-                            }} style={{cursor:'pointer'}} description={<>{'title'+pp.title}</>} />
-                            {pp.show ?<ContentItem titleId={pp.title}/>:null}
-                        </ContainerItem>
-                    ))
+
+    const clickItem = (title:number) => {
+        setData(value => {
+            value.forEach(ff => {
+                if(ff.title === title) {
+                    ff.show = !ff.show ;
+                    if(ff.show) {
+                        navigate(`/swagger/${title}`)
+                    }else {
+                        navigate(`/swagger`)
+                    }
+                }else {
+                    ff.show = false ;
                 }
-            </ContainerCss>
-        </Spin>
+            })
+            return [...value]
+        })
+    }
+    return (
+        <PageWrapper>
+            <Spin spinning={loading} tip={'load data...'}>
+                <ContainerCss>
+                    {
+                        data.map(pp => (
+                            <ContainerItem key={pp.title} id={`${pp.title}`}>
+                                <Alert onClick={() => clickItem(pp.title)} style={{cursor:'pointer'}} description={<>{'title'+pp.title}</>} />
+                                {pp.show ?<ContentItem titleId={pp.title}/>:null}
+                            </ContainerItem>
+                        ))
+                    }
+                </ContainerCss>
+            </Spin>
+        </PageWrapper>
+
     )
 }
 
