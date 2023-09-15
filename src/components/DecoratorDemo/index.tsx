@@ -1,4 +1,3 @@
-
 import React from "react";
 import {Card, List, Space} from "antd";
 import PageWrapper from "../PageWrapper";
@@ -56,17 +55,34 @@ type MethodDecorator = <T>(
 ) => TypedPropertyDescriptor<T> | void;
 
 const methodDecorator:MethodDecorator = (...args) => {
-
-    const target = args[0]
     const descriptor = args[2] ;
-
-
-    let original = descriptor.value as Function ;
+    const original = descriptor.value as Function ;
     // @ts-ignore
     descriptor.value = function () {
-        original.call(this,'传入数据1','传入数据2')
+        return original.call(this, '传入数据1', '传入数据2')
     }
 }
+
+function methodDD(query:string) {
+    return function (...args:any[]) {
+        args[2].value = function () {
+            return `query is ${query}`
+        }
+    }
+}
+
+class MethodDecoratorClass {
+    @methodDD(':userId')
+    getInfo(name:string,age:number,) {
+        return`name:${name},age:${age}`
+    }
+}
+
+const obj = new MethodDecoratorClass() ;
+
+const info = obj.getInfo('dyl',20) ;
+
+console.log(obj,info,'iii')
 
 /**
  * 参数装饰器
