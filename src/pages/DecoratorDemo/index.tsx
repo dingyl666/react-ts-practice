@@ -1,6 +1,6 @@
 import React from "react";
 import {Card, List, Space} from "antd";
-import PageWrapper from "../PageWrapper";
+import PageWrapper from "../../components/PageWrapper";
 
 interface IStatus {
 }
@@ -82,7 +82,6 @@ const obj = new MethodDecoratorClass() ;
 
 const info = obj.getInfo('dyl',20) ;
 
-console.log(obj,info,'iii')
 
 /**
  * 参数装饰器
@@ -112,7 +111,6 @@ export class DecoratorDemo extends React.PureComponent<IProps, IStatus> {
 
     @observable
     testPropertyDecorator = '111' ;
-
     mainDesc = () => {
         return <>
             <h1>装饰器本质是一种特殊的函数被应用在：</h1>
