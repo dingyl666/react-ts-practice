@@ -21,8 +21,7 @@ const ContentItem:React.FC <IContentItem> = React.memo((props) => {
     return (
         <ContentItemCss>
             {
-                loading ? <Spin spinning={loading} />
-                    :<>content...{titleId}</>
+                loading ? <Spin spinning={loading} /> :<>content...{titleId}</>
             }
         </ContentItemCss>
     )
