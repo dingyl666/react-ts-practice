@@ -5,6 +5,7 @@ import App from "../../App";
 import {DecoratorDemo} from "../../pages/DecoratorDemo";
 import NestCrud from "../../pages/NestCrud";
 import SideBar from "../SideBar";
+import CookieTest from "../../pages/CookieTest";
 
 
 const RouterConfig:React.FC = () => {
@@ -23,7 +24,8 @@ const RouterConfig:React.FC = () => {
                     {/*这里的*只能用在/后面，不能用在实际路径中间*/}
                     <Route path={'/decorator/*'} element={<DecoratorDemo />} />
                     <Route path={'/nest/crud'} element={<NestCrud />} />
-                    <Route path={'/wrapper'} element={<SideBar />} ></Route>
+                    <Route path={'/cookieTest'} element={<CookieTest />} />
+                    <Route path={'/wrapper'} element={<SideBar />} />
 
                 </Routes>
             </BrowserRouter>

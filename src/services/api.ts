@@ -39,3 +39,9 @@ export const getUserId = async (userId:number) => {
         }
     })
 }
+export const setCookie = async () => {
+    return await request(BaseUrl + '/user/setCookie', {
+        method: "GET",
+        params: {}
+    })
+}

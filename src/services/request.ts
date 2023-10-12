@@ -11,16 +11,21 @@ type IRequestType = (url:string,option:IRequestOption) => Promise<any> ;
 
 export const request:IRequestType = async (url,option) => {
     const newOption:{[x:string]:any} = {} ;
+    const paramsMapArray = Object.keys(option.params)
     if(option.method === 'GET') {
-        url += ('?'+Object.keys(option.params).map(mm => `${mm}=${option.params[mm]}`).join('&'))
+        if(paramsMapArray.length) {
+            url += ('?'+paramsMapArray.map(mm => `${mm}=${option.params[mm]}`).join('&'))
+        }
     }else if(option.method === 'POST') {
         newOption['body'] = JSON.stringify(option.params) ;
     }
 
     newOption['url'] = url ;
+    newOption['mode'] = 'cors' ;
     newOption['method'] = option.method ;
     newOption['headers'] = {
-        Accept: 'application/json',
+        'credentials': "include",
+        'Accept': 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
     };
 
