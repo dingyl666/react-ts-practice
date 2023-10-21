@@ -1,5 +1,4 @@
-
-
+import {User_Session} from "../pages/NestCrud/utils";
 
 
 interface IRequestOption {
@@ -28,6 +27,15 @@ export const request:IRequestType = async (url,option) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
     };
+
+    try {
+        const user = JSON.parse(window.sessionStorage.getItem(User_Session)!) ;
+        if(user) {
+            newOption['headers']['user'] = JSON.stringify(user) ;
+        }
+    }catch (e) {
+
+    }
 
     const res = await fetch(url,newOption) ;
     return res.json() ;

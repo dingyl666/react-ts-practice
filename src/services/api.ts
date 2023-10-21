@@ -45,3 +45,14 @@ export const setCookie = async () => {
         params: {}
     })
 }
+
+
+export const userLogin = async (params:{
+    name:string,
+    password:string,
+}):Promise<any> => {
+    return await request(BaseUrl + '/user/login',{
+        method:"POST",
+        params,
+    })
+}

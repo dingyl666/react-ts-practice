@@ -58,3 +58,27 @@ export const useGetList = () => {
 
     return {loading,list,add,del,up}
 }
+
+export const User_Session = 'userInfo' ;
+export const useCheckLogin = () => {
+    const [login,setLogin] = useState(false) ;
+
+    const check = () => {
+        try {
+            const {id}:any = JSON.parse(window.sessionStorage.getItem(User_Session)!) ;
+            if(id) {
+                setLogin(true) ;
+            }
+        }catch (e) {
+
+        }
+
+    }
+    useEffect(() => {
+        check()
+    },[])
+
+    return {
+        login,check
+    } ;
+}

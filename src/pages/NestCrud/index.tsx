@@ -1,10 +1,42 @@
 import React from "react";
 import PageWrapper from "../../components/PageWrapper";
-import {Alert, Button, Card, Space, Table} from "antd";
-import {DataModel, useGetList} from "./utils";
+import {Alert, Button, Card, Form, Input, message, Select, Space, Table} from "antd";
+import {useCheckLogin, DataModel, useGetList, User_Session} from "./utils";
+import {userLogin} from "../../services/api";
 
 const NestCrud:React.FC = () => {
+
     const {loading,list,add,del,up} = useGetList() ;
+
+    const {login,check} = useCheckLogin() ;
+
+    const [form] = Form.useForm<{password:string,name:string}>() ;
+    if(!login) {
+        return <Form form={form} layout={'horizontal'} onFinish={async e => {
+            const {name,password } = e ;
+            const res = await userLogin({name,password}) ;
+
+            if(res.message) {
+                message.error(res.message)
+                return
+            }
+            if(res) {
+                window.sessionStorage.setItem(User_Session,JSON.stringify(res.userInfo))
+                message.success('登陆成功') ;
+                check() ;
+            }
+        }}>
+            <Form.Item rules={[{required:true}]} name={'name'} label={'name'}>
+                <Input />
+            </Form.Item>
+            <Form.Item rules={[{required:true}]} name={'password'} label={'password'}>
+                <Input />
+            </Form.Item>
+            <Form.Item>
+                <Button type={'primary'} htmlType={'submit'}>提交</Button>
+            </Form.Item>
+        </Form>
+    }
     const columns = [
         {
             title:'id',
