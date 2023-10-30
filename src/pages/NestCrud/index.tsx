@@ -12,30 +12,32 @@ const NestCrud:React.FC = () => {
 
     const [form] = Form.useForm<{password:string,name:string}>() ;
     if(!login) {
-        return <Form form={form} layout={'horizontal'} onFinish={async e => {
-            const {name,password } = e ;
-            const res = await userLogin({name,password}) ;
+        return <div style={{margin:'100px 30%'}}>
+            <Form form={form} layout={'horizontal'} onFinish={async e => {
+                const {name,password } = e ;
+                const res = await userLogin({name,password}) ;
 
-            if(res.message) {
-                message.error(res.message)
-                return
-            }
-            if(res) {
-                window.sessionStorage.setItem(User_Session,JSON.stringify(res.userInfo))
-                message.success('登陆成功') ;
-                check() ;
-            }
-        }}>
-            <Form.Item rules={[{required:true}]} name={'name'} label={'name'}>
-                <Input />
-            </Form.Item>
-            <Form.Item rules={[{required:true}]} name={'password'} label={'password'}>
-                <Input />
-            </Form.Item>
-            <Form.Item>
-                <Button type={'primary'} htmlType={'submit'}>提交</Button>
-            </Form.Item>
-        </Form>
+                if(res.message) {
+                    message.error(res.message)
+                    return
+                }
+                if(res) {
+                    window.sessionStorage.setItem(User_Session,JSON.stringify(res.userInfo))
+                    message.success('登陆成功') ;
+                    check() ;
+                }
+            }}>
+                <Form.Item rules={[{required:true}]} name={'name'} label={'name'}>
+                    <Input />
+                </Form.Item>
+                <Form.Item rules={[{required:true}]} name={'password'} label={'password'}>
+                    <Input />
+                </Form.Item>
+                <Form.Item>
+                    <Button type={'primary'} htmlType={'submit'}>提交</Button>
+                </Form.Item>
+            </Form>
+        </div>
     }
     const columns = [
         {

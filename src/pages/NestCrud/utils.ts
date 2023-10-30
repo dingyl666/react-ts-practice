@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {addUser, delUser, getUserList, upDataUser} from "../../services/api";
-import {Modal} from "antd";
+import {message, Modal} from "antd";
 
 
 export class DataModel {
@@ -19,7 +19,7 @@ export const useGetList = () => {
     const request = () => {
         setLoading(true)
         getUserList().then(res => {
-            setList(res)
+            // setList(res)
             setLoading(false)
         })
     }
@@ -51,7 +51,10 @@ export const useGetList = () => {
         upDataUser({
             name:'测试数据'+new Date().valueOf(),
             userId:id
-        }).then(() => {
+        }).then(res => {
+            if(res.message) {
+                message.error(res.message).then()
+            }
             request() ;
         })
     }
